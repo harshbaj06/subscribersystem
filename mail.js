@@ -49,9 +49,9 @@ app.post("/",function(req,res){
 app.post("/failure",function(req,res){
   res.redirect("/");
 })
-app.listen(process.env.PORT || 5000,function(){
+app.listen(5000,function(){
     console.log("paddu");
-})
+});
 
 //b9e933722ab877db4f64b9b8ecd4bf9f-us21
 //2d64d3904b
