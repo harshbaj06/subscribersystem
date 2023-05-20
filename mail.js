@@ -5,8 +5,9 @@ const https = require("https");
 const request = require("request");
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 
+
 mailchimp.setConfig({
-  apiKey: "b9e933722ab877db4f64b9b8ecd4bf9f-us21",
+  apiKey: "9eb339da725c16069406af38c9a2e7ea-us21",
   server: "us21",
 });
 const listId = "2d64d3904b";
@@ -24,24 +25,44 @@ app.post("/",function(req,res){
     console.log(a+b+c);
 
     async function run() {
+        try {
         const response = await mailchimp.lists.addListMember(listId, {
           email_address: c,
           status: "subscribed",
           merge_fields: {
-            FNAME: b,
+            FNAME: a,
             LNAME: b
           }
-        });
+          })
+          if (response.status == "subscribed") {
+            res.sendFile(__dirname + "/success.html");
+            console.log("ooo");
+      }
+    }
+      catch(err){
+        res.sendFile(__dirname+"/failure.html"); 
+        console.log(err);
+      }
+        
 
         //console.log(res.statusCode);
-        if(res.statusCode==200)
+        /**if(res.statusCode==200)
         {
           res.sendFile(__dirname+"/success.html");
           console.log("ooo");
         }
         else{
           res.sendFile(__dirname+"/failure.html");
-        }  
+          console.log("ppp");
+        } */
+        /*if (response.status == "subscribed") {
+          res.sendFile(__dirname + "/success.html");
+          console.log("ooo");
+        /*} else {
+          res.sendFile(__dirname + "/failure.html");
+        }*/
+      
+      
     }
     run();
 
